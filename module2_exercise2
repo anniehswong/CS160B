@@ -1,0 +1,182 @@
+Week Two Exercises
+
+1. Given the following files in your directory, when you type in the commands given, what will be output?
+feb96 jan12.02 jan19.02 jan26.02 jan5.02 jan95 jan96 jan97 jan98 mar98 memo1 memo10 memo2 memo2.sv
+
+a. ls
+feb96     jan19.02  jan5.02  jan96  jan98  memo1   memo2
+jan12.02  jan26.02  jan95    jan97  mar98  memo10  memo2.sv
+# List all 13 files
+
+b. echo *
+feb96 jan12.02 jan19.02 jan26.02 jan5.02 jan95 jan96 jan97 jan98 mar98 memo1 memo10 memo2 memo2.sv
+# Print each file on one line separated by spaces
+
+c. echo m[a-df-z]*
+mar98
+# The brackets match one character. The second character can be anything from a through d or from f through z, so e is skipped. Then * matches zero or more characters. mar98 matches because its second letter is a.
+
+d. echo jan*
+jan12.02 jan19.02 jan26.02 jan5.02 jan95 jan96 jan97 jan98
+# Print filenames that start with jan and matches zero or more characters
+
+e. echo ?????
+feb96 jan95 jan96 jan97 jan98 mar98 memo1 memo2
+# Print filenames that are exactly five characters long.
+
+f. echo jan?? feb?? mar??
+jan95 jan96 jan97 jan98 feb96 mar98
+# Print filenames that start with jan, feb, or mar and end with exactly two more characters.
+
+g. echo *[!0-9]
+memo2.sv
+# Print filenames that end with a non-digit character.
+
+h. echo [A-Z]*
+feb96 jan12.02 jan19.02 jan26.02 jan5.02 jan95 jan96 jan97 jan98 mar98 memo1 memo10 memo2 memo2.sv
+# Print filenames that start with an uppercase letter.
+
+i. echo *.*
+jan12.02 jan19.02 jan26.02 jan5.02 memo2.sv
+# Print filenames that contain a dot
+
+j. echo 02*
+
+k. echo [fjm][ae][bnr]*
+feb96 jan12.02 jan19.02 jan26.02 jan5.02 jan95 jan96 jan97 jan98 mar98
+# Print filenames with f, j, or m first, a or e second, and b, n, or r third and matches zero or more characters after those first three
+
+2. What will be output (in general) when you type the following commands into the console? You probably will not certain files available so just describe what the command does. 
+
+a. ls | wc -l
+# ls lists one non-hidden entry per line when piped
+# wc -l counts those lines and prints the total
+
+b. who | wc -l
+# who lists current login sessions, one per line.
+# wc -l counts those lines and prints the total number of sessions
+
+c. ls *.c | wc -l
+# List filenames ending in .c, one per line, and print the number of matches
+
+
+d. who | sort
+# List current login sessions in alphabetical order by username
+
+e. cp memo1 ..
+# Copy memo1 to the parent directory
+
+f. rm ???
+# Delete files with exactly three characters in their names
+
+g. mv progs/* /users/steve/backup
+# Move all non-hidden files and subdirectories inside progs to /users/steve/backup.
+
+h. rm *.o
+# Delete non-hidden files in the current directory whose names end in .o.
+
+g. cd; pwd
+# cd with no arguments takes you to your home directory
+# The semicolon separates the two commands so they run in order
+# pwd prints the full path of the current directory
+
+h. plotdata 2>errors &
+# Run plotdata in the background and send its error messages to the errors file.
+
+3. What do the following expressions mean?
+
+a. x*
+# zero or more occurences of x
+
+b. xx* 
+# one x followed by zero or more occurrences of x
+
+c. x\{1,5\} 
+# Match x repeated at least once and at most 5 times
+
+d. x\{5,\} 
+# Match 5 or more consecutive occurrences of x, with no upper limit
+
+e. x\{10\} 
+# Match exactly 10 consecutive occurrences of x
+
+g. [0,9] 
+# Match one character: 0, a comma, or 9
+
+h. [0,9][0,9][0,9]
+# Match three consecutive characters, each of which can be 0, 9, or a comma
+
+i. [0-9]\{3\} 
+# Match exactly three consecutive digits, each from 0 through 9
+
+j. [0-9]\{3,5\} 
+# Match three to five consecutive digits, each from 0 through 9
+
+k. [0-9]\{1,3\},[0-9]\{3\}
+# Match one to three digits, followed by a comma, then exactly three digits
+
+l. ^\...
+# Match a period followed by any two characters at the start of the line
+
+m. [A-Za-z_][A-Za-z_0-9]* 
+# Match a letter or underscore followed by zero or more letters, underscores, or digits.
+
+n. \([A-Za-z0-9]\{1,\}\)\1 
+# Match one or more letters or digits, followed immediately by the same sequence
+
+o. ^Begin$ 
+# Match a line that contains exactly Begin
+
+p. ^\(.\).*\1$ 
+# Match a line whose first and last characters are the same with zero or more characters in between
+
+4. What do the following commands output?
+
+a. who | grep 'mary' 
+# List current login sessions and print only the lines that contain mary
+
+b. who | grep '^mary ' 
+# List current login sessions and print only the lines that start with mary followed by a space
+
+c. grep '[Uu]nix' ch?/* 
+# Search non-hidden files directly inside directories named ch plus exactly one character
+# Print lines containing Unix or unix
+
+d. ls -l | sort +4n
+# List non-hidden files and directories in long format
+# Sort numerically by the fifth field (size in bytes), smallest first
+
+e. sed '/^$/d' text > text.out
+# Remove empty lines from text and write the result to text.out
+
+f. sed 's/\([Uu]nix\)/\1(TM)/g' text > text.out 
+# Add (TM) after every occurrence of Unix or unix in text
+# Preserve the original capitalization and write the result to text.out
+
+g. date | cut -c12-16 
+# Print only the characters at positions 12 through 16 in the date output
+
+h. date | cut -c5-11,25- | sed 's/\([0-9]\{1,2\}\)/\1,/'
+# date prints for example: (Thu Nov 19 16:21:40 PST 2026)
+# cut keeps characters 5–11 and 25 through the end (Nov 19 2026)
+# sed matches the first one or two consecutive digits (19)
+# \1 keeps those digits, and the comma goes immediately after
+# Final output is Nov 19, 2026
+
+5. Give the Unix commands for the following
+
+a. Find all logged-in users with usernames of at least four characters.
+# who | grep -E '^[^[:space:]]{4,}[[:space:]]'
+
+b. Find all users on your system whose user ids are greater than 99.
+# awk -F: '$3 > 99 {print $1}' /etc/passwd
+
+c. Find the number of users on your system whose user ids are greater than 99.
+# awk -F: '$3 > 99 {print $1}' /etc/passwd | wc -l
+
+d. List all the files in your directory in decreasing order of file size.
+# ls -S /students/awong10/exercise2\
+
+# -S sorts by file size, largest to smallest
+# -h makes sizes easier to read, like 4K or 2M
+# -l displays the detailed listing, including the file size
