@@ -41,6 +41,8 @@ jan12.02 jan19.02 jan26.02 jan5.02 memo2.sv
 # Print filenames that contain a dot
 
 j. echo 02*
+02*
+# No filenames start with 02, so the shell leaves 02* unchanged and prints it
 
 k. echo [fjm][ae][bnr]*
 feb96 jan12.02 jan19.02 jan26.02 jan5.02 jan95 jan96 jan97 jan98 mar98
@@ -58,7 +60,6 @@ b. who | wc -l
 
 c. ls *.c | wc -l
 # List filenames ending in .c, one per line, and print the number of matches
-
 
 d. who | sort
 # List current login sessions in alphabetical order by username
